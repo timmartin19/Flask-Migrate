@@ -9,7 +9,7 @@ from setuptools import setup
 
 setup(
     name='vk-easy-alembic',
-    version='1.6.1',
+    version='1.6.2',
     url='http://github.com/miguelgrinberg/flask-migrate/',
     license='MIT',
     author='Miguel Grinberg',
