@@ -27,13 +27,15 @@ class _MigrateConfig(object):
 
 class Migrate(object):
     def __init__(self, app=None, db=None, directory='migrations', **kwargs):
+        self.directory = directory
         if app is not None and db is not None:
             self.init_app(app, db, directory, **kwargs)
 
-    def init_app(self, app, db, directory='migrations', **kwargs):
+    def init_app(self, app, db, directory=None, **kwargs):
+        self.directory = directory or self.directory
         if not hasattr(app, 'extensions'):
             app.extensions = {}
-        app.extensions['migrate'] = _MigrateConfig(db, directory, **kwargs)
+        app.extensions['migrate'] = _MigrateConfig(db, self.directory, **kwargs)
 
 
 class Config(AlembicConfig):
@@ -155,6 +157,20 @@ def migrate(directory=None, message=None, sql=False, head='head', splice=False,
                          version_path=version_path, rev_id=rev_id)
     else:
         command.revision(config, message, autogenerate=True, sql=sql)
+
+
+@MigrateCommand.option('revision', nargs='?', default='head',
+                       help="revision identifier")
+@MigrateCommand.option('-d', '--directory', dest='directory', default=None,
+                       help=("migration script directory (default is "
+                             "'migrations')"))
+def edit(revision='current', directory=None):
+    """Edit current revision."""
+    if alembic_version >= (0, 8, 0):
+        config = _get_config(directory)
+        command.edit(config, revision)
+    else:
+        raise RuntimeError('Alembic 0.8.0 or greater is required')
 
 
 @MigrateCommand.option('--rev-id', dest='rev_id', default=None,
