@@ -163,7 +163,7 @@ def edit(config, revision='current'):
 @click.option('--branch-label',  default=None,
               help='Specify a branch label to apply to the new revision')
 @click.option('-m', '--message', default=None)
-@click.argument('revisions', nargs='+')
+@click.argument('revisions', nargs=-1)
 @inject_alembic_config
 def merge(config, revisions='', message=None, branch_label=None, rev_id=None):
     """Merge two revisions together.  Creates a new migration file"""
