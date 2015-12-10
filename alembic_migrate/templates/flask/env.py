@@ -15,14 +15,26 @@ config = context.config
 fileConfig(config.config_file_name)
 logger = logging.getLogger('alembic.env')
 
+
+def get_metadata(metadata_str):
+    """
+    :param str metadata_str: An import string
+        for the metadata, e.g.
+        ``mypackage.mymodule:DeclarativeBase.metadata``
+    :return: The metadata for your package
+    """
+    parts = metadata_str.strip().split(':')
+    metadata = importlib.import_module(parts[0])
+    for attribute in parts[1].split('.'):
+        metadata = getattr(metadata, attribute)
+    return metadata
+
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_module = config.get_main_option('target_module')
-target_attr = config.get_main_option('target_metadata_attr')
-target_module = importlib.import_module(target_module)
-target_metadata = getattr(getattr(target_module, target_attr), 'metadata')
+metadata_str = config.get_main_option('target_metadata')
+target_metadata = get_metadata(metadata_str)
 
 
 # other values from the config, defined by the needs of env.py,

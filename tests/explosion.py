@@ -18,8 +18,9 @@ class User(Base):
     name = Column(String(128))
 
 
-configurations = dict(database_uri='sqlite://', target_module='tests.app',
-                      target_metadata_attr='Base', directory='migrations')
+configurations = dict(database_uri='sqlite://',
+                      target_metadata='tests.explosion:Base.metadata',
+                      directory='migrations')
 
 
 class TestBasic(unittest.TestCase):
