@@ -8,8 +8,8 @@ from setuptools import setup
 
 
 setup(
-    name='Flask-Migrate',
-    version='1.6.0',
+    name='vk-easy-alembic',
+    version='1.6.1',
     url='http://github.com/miguelgrinberg/flask-migrate/',
     license='MIT',
     author='Miguel Grinberg',
@@ -17,7 +17,7 @@ setup(
     description=('SQLAlchemy database migrations for Flask applications '
                  'using Alembic'),
     long_description=__doc__,
-    packages=['flask_migrate'],
+    packages=['alembic_migrate'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',
