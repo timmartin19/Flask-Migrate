@@ -36,3 +36,9 @@ tests/temp_folder
 .mr.developer.cfg
 .project
 .pydevproject
+
+# PyCharm
+.idea/
+
+# Test migrations
+tests/migrations
