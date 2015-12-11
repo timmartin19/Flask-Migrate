@@ -64,7 +64,7 @@ def inject_alembic_config(func):
         directory = ctx.obj['directory']
         config = _get_config(directory, x_arg=x_arg)
         config.set_main_option('sqlalchemy.url', ctx.obj['database_uri'])
-        config.set_main_option('target_metadata', ctx.obj['target_metadata'])
+        config.set_main_option('metadata', ctx.obj['target_metadata'])
         ctx.obj['config'] = config
         return ctx.invoke(func, config, *args, **kwargs)
     return update_wrapper(wrapper, func)

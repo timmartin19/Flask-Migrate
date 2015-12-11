@@ -33,7 +33,7 @@ def get_metadata(metadata_str):
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-metadata_str = config.get_main_option('target_metadata')
+metadata_str = config.get_main_option('metadata')
 target_metadata = get_metadata(metadata_str)
 
 
